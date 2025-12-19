@@ -1,0 +1,1 @@
+this routes everything on the http://localhost/public
