@@ -2,5 +2,8 @@
 node_modules
 dist
 .git
+.cache
+.mysql
+.db
 resources/logs
 package-lock.json

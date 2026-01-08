@@ -1,0 +1,42 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+.next/
+out/
+build/
+
+# IDE / System files
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Git and version control
+.git/
+.gitignore
+.github/
+
+# Docker files (optional, but prevents self-copying)
+docker/
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation and tests
+README.md
+docs/
+tests/
+unit_tests/

@@ -1,0 +1,62 @@
+services:
+  node:
+    container_name: creeperbot-node
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.dev
+    ports:
+      - '6900-6900:6900'
+    expose:
+      - "6900"
+    environment:
+      - PORT=5162
+      - VIRTUAL_HOST=creeperbot-node.localhost
+      - VIRTUAL_PORT=6900
+    volumes:
+      - ../:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.cache
+      - /usr/src/app/.db
+    networks:
+      - creeperbot-network
+    # scale: 1
+  redis:
+    container_name: creeperbot-cache
+    image: redis:6.2-alpine
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ../.cache:/data
+    networks:
+      - creeperbot-network
+  mysql:
+    container_name: creeperbot-mysql
+    image: mysql:8.0
+    ports:
+      - '3306:3306'
+    networks:
+      - creeperbot-network
+    volumes:
+      - ../.mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASS}
+  nginx-proxy:
+    container_name: creeperbot-proxy
+    image: nginxproxy/nginx-proxy
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - creeperbot-network
+
+networks:
+  creeperbot-network:
+    driver: bridge
+    # external: true
