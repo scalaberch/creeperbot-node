@@ -9,7 +9,7 @@ services:
     expose:
       - "6900"
     environment:
-      - PORT=5162
+      - PORT=6900
       - VIRTUAL_HOST=creeperbot-node.localhost
       - VIRTUAL_PORT=6900
     volumes:

@@ -9,6 +9,7 @@ import { WSConfig } from '@server/modules/websockets/defines';
  */
 const modules: EnabledModules = [
   'cache',
+  'mysql',
   'http',
   'websockets',
   // 'stripe'
